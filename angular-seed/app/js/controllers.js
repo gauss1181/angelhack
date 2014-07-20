@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('MyCtrl1', ['$scope', '$timeout',
-	function($scope, $timeout) {
+.controller('MyCtrl1', ['$scope', '$timeout','$http',
+	function($scope, $timeout, $http) {
 
 	$scope.$on('$locationChangeStart', function(event) {
 	       	pubnub.history({
@@ -29,7 +29,7 @@ angular.module('myApp.controllers', [])
 			angular.element('#userDetails').modal('show');
 			console.log('user_init!');
 		}
-
+		$scope.getQuestions();
 	}
 
 	 angular.element(document).ready(function(){
@@ -172,6 +172,24 @@ angular.module('myApp.controllers', [])
 			});
 		}
 		console.log("chat should be cleared!");
+	}
+
+	$scope.getQuestions = function(){
+		var url = "http://localhost:1212/questions";
+		var method = "GET";
+
+		$http({
+			method: method,
+			url: url
+		})
+		.success(function(res){
+			console.log("success");
+			console.log(res.data);
+		})
+		.error(function(res){
+			console.log("error");
+			console.log(res.data);
+		});
 	}
 
 }])
