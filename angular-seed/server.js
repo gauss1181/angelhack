@@ -3,6 +3,8 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var logfmt = require("logfmt");
+
 
 var pubnub = require("pubnub").init({
 	publish_key   : 'pub-c-39919f39-4f8e-4d25-9c5d-e939f597226a',
@@ -15,6 +17,7 @@ var app = express();
 
 app.set('port', process.env.PORT || 1212);
 app.use(logger('dev'));
+app.use(logfmt.requestLogger());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());

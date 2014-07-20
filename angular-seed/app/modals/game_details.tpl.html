@@ -1,0 +1,33 @@
+<div class="modal fade" id="gameDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="left:0">
+    <div class="modal-content " style="margin-bottom:50px;width:400px;min-height:100px;margin-left: 100px;border:0;">
+
+      <div class="modal-header" style="border:0;">
+        <button type="button" style="/* color:white;opacity:.7; */" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">
+          <center>
+            Setting up your game!
+          </center>
+        </h4>
+      </div>
+      <div>
+      <select style="margin-left: 145px;" class="selectpicker">
+        <option>Arithmetic</option>
+        <option>Algebra</option>
+        <option>Calculus</option>
+      </select>
+<!--       <input style="margin-left: 120px;"id="username" ng-model="username" type="text" /> -->
+    </div>
+      <div>
+        <a href="#partial1">
+      <button style="margin-left: 140px;margin-top: 16px;margin-bottom: 16px;" ng-click="createNewGame()">Setup Game!</button>
+    </a>
+    </div>
+    <div>
+      <img id="loading" ng-if="load == true" ng-src="img/loading.gif" style="width:150px; height:150px;" />
+    </div>
+      <div class="modal-footer" style="max-height:100px;border:0;padding:0;">
+      </div>
+    </div>
+  </div>
+</div>

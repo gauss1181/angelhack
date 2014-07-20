@@ -7,12 +7,22 @@
      </div>
      <div style="width:600px; float:left; border-style:solid;">
         <h3>Lobby</h3>
-        <a href="#partial1"><button ng-click="createNewGame()" class="btn btn-primary">Start New Game</button></a>
+        <button ng-click="startGameSetup()" class="btn btn-primary">Start New Game</button>
         <button class="btn btn-primary">View Users Online</button>
         <button ng-click="user_change()"class="btn btn-primary">Change Username</button>
      </div>
-     <div style="width:600px; float:left; border-style:solid;">
-        <div ng-repeat="game in games">{{ game }}</div>
-     </div>
+     <div style="width:600px; height: 500px; overflow-y:auto; ">
+	     <div style="width:600px; float:left; border-style:solid;">
+	     	<div ng-repeat="game in games track by $index" style="width:550px;height:100px;-webkit-border-radius: 20px;-moz-border-radius: 20px;border-radius: 20px;background:rgba(141,221,227,0.5);-webkit-box-shadow: #171717 5px 5px 5px;-moz-box-shadow: #171717 5px 5px 5px; box-shadow: #171717 5px 5px 5px;margin-bottom: 15px;margin-left: 20px;margin-top: 20px;">
+	     		<div style="margin-top: 25px">
+	     			<a style="margin-left: 25px;" ng-click="joinGame(game)">
+	     				{{ game }}
+	     			</a>
+
+	     		</div>
+	     	</div>
+
+	     </div>
+ 	</div>
  </div>
- <div ng-include=" 'modals/user_details.tpl.html' "></div>
+

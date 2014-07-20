@@ -192,18 +192,25 @@ $scope.generateProblem = function(){
       	pubnub = PUBNUB.init({
       		publish_key   : 'pub-c-39919f39-4f8e-4d25-9c5d-e939f597226a',
       		subscribe_key : 'sub-c-39857530-0f9c-11e4-8880-02ee2ddab7fe',
-      		ssl : true
+      		ssl : true,
+      		uuid:  user + '9c5d'
       	});
+
+      	var time;
       	pubnub.time(
-      		function(time){
+      		function(t){
       			pubnub = PUBNUB.init({
       				publish_key   : 'pub-c-39919f39-4f8e-4d25-9c5d-e939f597226a',
       				subscribe_key : 'sub-c-39857530-0f9c-11e4-8880-02ee2ddab7fe',
       				ssl : true,
-      				uuid:  user + time
+      				uuid:  user + '9c5d'
       			});
+      			time = t;
+
+
       			pubnub.subscribe({
       				channel : "in-game-chat",
+      				state: {name: localStorage.user},
       				message : function(m){ 
       					receive(m)
       				},
@@ -212,23 +219,29 @@ $scope.generateProblem = function(){
 
       			pubnub.subscribe({
       				channel : "typing",
+      				state: {name: localStorage.user},
       				message : function(m){ console.log(m) },
       				connect : typing_welcome
       			});
 
       			pubnub.subscribe({
       				channel : "game_list",
+      				state: {name: localStorage.user},
       				message : function(m){ 
       					console.log("updated games list!"); 
       					console.log(m);
-      					$scope.games = m; 
       					localStorage.games = m;
+      					$scope.safeApply(function(){
+      						$scope.games = localStorage.games.split(",");
+      					});
+      					
       				},
       				connect : function(){ console.log("Listening for game list updates!") }
       			});
 
       			pubnub.subscribe({
       				channel : "answers",
+      				state: {name: localStorage.user},
       				message : function(m){ receive(m) },
       				connect : answer_welcome
       			});
@@ -260,6 +273,8 @@ $scope.generateProblem = function(){
 							// localStorage.games = JSON.parse(list[0]);
 						}
 					});
+
+      			$scope.getAllChannels();
       		});
 }
 
@@ -387,20 +402,26 @@ $scope.getQuestions = function(){
 	});
 }
 
+$scope.load = false;
+
 $scope.createNewGame = function(){
+	$scope.safeApply(function(){
+		$scope.load = true;
+	});
 	pubnub.uuid(function(uuid){
 		console.log("trying to make a new game with " +uuid);
 		pubnub.publish({
 			channel: "new_game",
-			message: uuid
+			message: uuid,
+			connect: function(){
+				$scope.joinGame(uuid);
+			}
 		});
-		pubnub.subscribe({
-			channel: uuid,
-			message : function(m){ 
-				receive(m)
-			},
-			connect : game_welcome
-		});
+
+	});
+	angular.element('#gameDetails').modal('hide');
+	$scope.safeApply(function(){
+		$scope.load = false;
 	});
 }
 
@@ -420,11 +441,68 @@ $scope.loadGames = function(){
 }
 
 $scope.getPlayers = function(game){
+	console.log("getting players for game: " + game);
 	pubnub.here_now({
 		channel: game,
+		state: true,
+		callback: function(m){
+			console.log("getting players!");
+			console.log(m);
+		}
 
-	})
+	});
 }
+
+$scope.joinGame = function(game){
+	$scope.getPlayers(game);
+	pubnub.subscribe({
+		channel : game,
+		message : function(m){ 
+			receive(m);
+		},
+		uuid: localStorage.user + '9c5d',
+		state: {name: localStorage.user},
+		connect : function(){
+			console.log("Welcome " + localStorage.user + " to game " + game);
+			setTimeout(function() {
+				$scope.safeApply(function(){
+					$scope.getPlayers(game);
+				});
+			}, 5000);
+		},
+		disconnect: function(){
+			console.log('goodbye ' + localStorage.user);
+		}
+	});
+}
+
+$scope.leaveGame = function(game){
+	$scope.getPlayers(game);
+	pubnub.unsubscribe({
+		channel : game
+	});
+	setTimeout(function() {
+		$scope.safeApply(function(){
+			$scope.getPlayers(game);
+		});
+	}, 5000);
+}
+
+$scope.getAllChannels = function(){
+	pubnub.here_now({
+		uuids: true,
+		state:true,
+		callback: function(m){
+			console.log("getting all channels!");
+			console.log(m);
+		}
+	});
+}
+
+$scope.startGameSetup = function(){
+	angular.element('#gameDetails').modal('show');
+}
+
 
 
 
