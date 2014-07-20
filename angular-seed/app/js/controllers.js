@@ -36,6 +36,65 @@ angular.module('myApp.controllers', [])
 	 	
 	 });
 
+	var problems = [
+            {
+              question: 'Hello this is a new math problem. What is your answer? Type it below.',
+              answer: 'Hi'
+            },
+            {
+              question: 'Bye',
+              answer: 'So long'
+            },
+            {
+              question: 'Find the area of a square with length 5 and height 2.',
+              answer: '10'
+            },
+            {
+              question: 'Find the volume of a rectangular prism with length 9, width 6, and height 4.',
+              answer: '216'
+            },
+            {
+              question: 'What is the answer to life, the universe, and everything?',
+              answer: '42'
+            },
+            {
+              question: 'asdfasdf',
+              answer: '1'
+            },
+            {
+              question: 'ghjk',
+              answer: '0'
+            },
+            {
+              question: 'poinpon',
+              answer: 'blah'
+            },
+            {
+              question: 'lol',
+              answer: 'hi'
+            },
+            {
+              question: 'test',
+              answer: 'test'
+            },
+            ];
+
+            $scope.generateProblem = function(){
+            	document.getElementById("problem").innerHTML = problems[Math.floor(Math.random() * 10)].question;
+            };
+
+            //document.getElementById("problem").innerHTML = problems[Math.floor(Math.random() * 10)].question;
+
+            function submit() {
+              var answer = document.getElementById("answer").value;
+              if (answer == document.getElementById("problem").innerHTML.answer) {
+                document.getElementById("result").innerHTML = "Correct";
+              }
+              else {
+                document.getElementById("result").innerHTML = "Incorrect";
+              }
+            }
+
 	var pubnub;
 	(function(){
 
