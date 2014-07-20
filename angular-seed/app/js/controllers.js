@@ -17,7 +17,7 @@ angular.module('myApp.controllers', [])
 		pubnub.subscribe({
 			channel : "hello_world",
 			message : function(m){ receive(m) },
-			connect : publish
+			connect : welcome
 		});
 
 		pubnub.history({
@@ -33,12 +33,17 @@ angular.module('myApp.controllers', [])
 		});
 	})();
 
+	function welcome() {
+		console.log('Welcome to the math contest game!');
+	}
+
 	function publish() {
 		var text = document.getElementById('message').value;
 		pubnub.publish({
 			channel : "hello_world",
 			message : "" + text
 		});
+
 
 	}
 
@@ -47,15 +52,20 @@ angular.module('myApp.controllers', [])
 		var div = document.createElement('div');
 		div.innerHTML = text;
 		chat.appendChild(div);
+		angular.element('#chat').scrollTop(2000);
 	}
 
 	$scope.publish = function(){
 		publish();
+		angular.element('#message').val('');
 	}
 
 	$scope.enterPressed = function(d){
 		console.log("pressed!");
-		console.log(d);
+		console.log(angular.element(d).val());
+		$scope.publish();
+		
+
 	}
 }])
 .controller('MyCtrl2', ['$scope', function($scope) {
