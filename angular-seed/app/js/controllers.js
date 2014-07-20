@@ -58,7 +58,7 @@ angular.module('myApp.controllers', [])
 	$scope.publish = function(){
 		publish();
 		angular.element('#message').val('');
-	}
+	};
 
 	$scope.enterPressed = function(d){
 		console.log("pressed!");
@@ -66,7 +66,8 @@ angular.module('myApp.controllers', [])
 		$scope.publish();
 		
 
-	}
+	};
+
 }])
 .controller('MyCtrl2', ['$scope', function($scope) {
 
