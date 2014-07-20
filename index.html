@@ -1,5 +1,13 @@
 <html>
    <body>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="test.js"></script>
@@ -8,13 +16,13 @@
          <div style="border-style:solid; width:420px; float:left;">
             <h3>Chat</h3>
          	<div id="chat" style="border-style:solid; width:400px;"></div>
-         	<input id="message" type="text" size="65" />
-         	<button type="submit" onclick="publish()" >Send</button>
+         	<input id="message" type="text" size="60" />
+         	<button type="submit" onclick="publish()" class="btn btn-primary">Send</button>
          </div>
          <div style="width:600px; float:left; border-style:solid;">
             <h3>Lobby</h3>
-            <button>Start New Game</button>
-            <button>View Users Online</button>
+            <button class="btn btn-primary">Start New Game</button>
+            <button class="btn btn-primary">View Users Online</button>
          </div>
       </div>
       <!-- </form> -->
