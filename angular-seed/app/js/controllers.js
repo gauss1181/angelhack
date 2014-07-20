@@ -89,46 +89,46 @@ angular.module('myApp.controllers', [])
 });
 
 var problems = [
-{
-	question: 'Hello this is a new math problem. What is your answer? Type it below.',
-	answer: 'Hi'
-},
-{
-	question: 'Bye',
-	answer: 'So long'
-},
-{
-	question: 'Find the area of a square with length 5 and height 2.',
-	answer: '10'
-},
-{
-	question: 'Find the volume of a rectangular prism with length 9, width 6, and height 4.',
-	answer: '216'
-},
-{
-	question: 'What is the answer to life, the universe, and everything?',
-	answer: '42'
-},
-{
-	question: 'asdfasdf',
-	answer: '1'
-},
-{
-	question: 'ghjk',
-	answer: '0'
-},
-{
-	question: 'poinpon',
-	answer: 'blah'
-},
-{
-	question: 'lol',
-	answer: 'hi'
-},
-{
-	question: 'test',
-	answer: 'test'
-}];
+            {
+              question: 'Walking down Jane Street, Ralph passed four houses in a row, each painted a different color. He passed the orange house before the red house, and he passed the blue house before the yellow house. The blue house was not next to the yellow house. How many orderings of the colored houses are possible?',
+              answer: '3'
+            },
+            {
+              question: 'The difference between a two-digit number and the number obtained by reversing its digits is 5 times the sum of the digits of either number. What is the sum of the two digit number and its reverse?',
+              answer: '99'
+            },
+            {
+              question: 'Five positive consecutive integers starting with a have average b. What is the average of 5 consecutive integers that start with b?',
+              answer: 'a+4'
+            },
+            {
+              question: 'Convex quadrilateral ABCD has AB = 3, BC = 4, CD = 13, AD = 12, and angle ABC = 90 degrees, as shown. What is the area of the quadrilateral?',
+              answer: '36'
+            },
+            {
+              question: 'A set S consists of triangles whose sides have integer lengths less than 5, and no two elements of S are congruent or similar. What is the largest number of elements that S can have?',
+              answer: '9'
+            },
+            {
+              question: 'Let P be a cubic polynomial with P(0) = k, P(1) = 2k, and P(-1) = 3k. What is P(2) + P(-2)?',
+              answer: '14k'
+            },
+            {
+              question: 'Leah has 13 coins, all of which are pennies and nickels. If she had one more nickel than she has now, then she would have the same number of pennies and nickels. In cents, how much are her coins worth?',
+              answer: '37'
+            },
+            {
+              question: 'Susie pays for 4 muffins and 3 bananas. Calvin spends twice as much paying for 2 muffins and 16 bananas. A muffin is how many times as expensive as a banana?',
+              answer: '5/3'
+            },
+            {
+              question: 'What is the sum of the exponents of the prime factors of the square root of the largest perfect square that divides 12!?',
+              answer: '8'
+            },
+            {
+              question: 'A fair coin is tossed 3 times. What is the probability of at least two consecutive heads?',
+              answer: '3/8'
+            }];
 
 $scope.generateProblem = function(){
 	document.getElementById("problem").innerHTML = problems[Math.floor(Math.random() * 10)].question;
