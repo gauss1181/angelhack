@@ -3,7 +3,22 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('MyCtrl1', ['$scope', function($scope) {
+.controller('MyCtrl1', ['$scope', '$timeout', function($scope, $timeout) {
+
+	function user_init(){
+		if(localStorage.user == undefined || 
+			localStorage.user == "undefined" || 
+			localStorage.user == null || 
+			localStorage.user == "null"){
+			angular.element('#userDetails').modal('show');
+			console.log('user_init!');
+		}
+	}
+
+	 angular.element(document).ready(function(){
+	 	
+	 });
+
 	var pubnub;
 	(function(){
 
@@ -15,34 +30,68 @@ angular.module('myApp.controllers', [])
 
 
 		pubnub.subscribe({
-			channel : "hello_world",
-			message : function(m){ receive(m) },
+			channel : "in-game-chat",
+			message : function(m){ 
+					receive(m)
+				 },
 			connect : welcome
 		});
 
+		pubnub.subscribe({
+			channel : "typing",
+			message : function(m){ console.log(m) },
+			connect : typing_welcome
+		});
+
+		pubnub.subscribe({
+			channel : "answers",
+			message : function(m){ receive(m) },
+			connect : answer_welcome
+		});
+
 		pubnub.history({
-			channel: 'hello_world',
+			channel: 'in-game-chat',
 			count: 100,
 			callback: function(m){
 				console.log(m);
 				var list = m[0];
 				for(var i = 0; i < list.length; i++){
-					receive(list[i]);
+					receive(list[i]);						
 				}
 			}
 		});
+
+		// user_init();
+		$timeout(function() {user_init()}, 1000);
+
+		
 	})();
 
 	function welcome() {
 		console.log('Welcome to the math contest game!');
 	}
 
-	function publish() {
+	function answer_welcome() {
+		console.log('You may now begin answering questions.');
+	}
+	function typing_welcome() {
+		console.log('Listening to typing updates...');
+	}
+
+	function publish(isMessage) {
 		var text = document.getElementById('message').value;
-		pubnub.publish({
-			channel : "hello_world",
-			message : "" + text
-		});
+		if(isMessage){
+			pubnub.publish({
+				channel : "in-game-chat",
+				message : localStorage.user + ": " + text
+			});
+		} else {
+			pubnub.publish({
+				channel : "typing",
+				message : "typing update!"
+			});
+		}
+
 
 
 	}
@@ -55,18 +104,49 @@ angular.module('myApp.controllers', [])
 		angular.element('#chat').scrollTop(2000);
 	}
 
-	$scope.publish = function(){
-		publish();
-		angular.element('#message').val('');
-	};
+	$scope.detectTyping = function(){
+		console.log('typing!');
+		$scope.publish(false);
+	}
+
+	$scope.publish = function(isMessage){
+		if(localStorage.user == undefined || 
+			localStorage.user == "undefined" || 
+			localStorage.user == null || 
+			localStorage.user == "null"){
+			if(confirm("Please set up a username before beginning.")){
+				$scope.user_change();
+			} 
+
+		}else if (angular.element('#message').val() == '') {
+			console.log('message is empty.');
+
+		}else {
+			publish(isMessage);
+			if(isMessage){
+				angular.element('#message').val('');			
+			}
+		}
+
+
+	}
 
 	$scope.enterPressed = function(d){
 		console.log("pressed!");
 		console.log(angular.element(d).val());
-		$scope.publish();
-		
+		$scope.publish(true);
 
 	};
+
+	$scope.user_change = function(){
+		angular.element('#userDetails').modal('show');	
+	}
+
+	$scope.saveUser = function(){
+		localStorage.user = angular.element('#username').val();
+		angular.element('#username').val('');
+		angular.element('#userDetails').modal('hide');
+	}
 
 }])
 .controller('MyCtrl2', ['$scope', function($scope) {
