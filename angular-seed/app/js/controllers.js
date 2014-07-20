@@ -8,6 +8,7 @@ angular.module('myApp.controllers', [])
 		
 		var pubnub;
 		$scope.score = 0;
+		$scope.attempts = 0;
 
 		$scope.safeApply = function(fn) {
 
@@ -132,6 +133,7 @@ var problems = [
             }];
 
 $scope.checkAnswer = function(){
+	$scope.attempts += 1;
 	$scope.answer = document.getElementById("answer").value;
 	$scope.currentProblem = document.getElementById("problem").className;
 	if ($scope.answer == $scope.currentProblem) {
