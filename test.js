@@ -14,7 +14,8 @@ $(document).ready(function(){
  
       pubnub = PUBNUB.init({
          publish_key   : 'pub-c-39919f39-4f8e-4d25-9c5d-e939f597226a',
-         subscribe_key : 'sub-c-39857530-0f9c-11e4-8880-02ee2ddab7fe'
+         subscribe_key : 'sub-c-39857530-0f9c-11e4-8880-02ee2ddab7fe',
+         ssl : true
      });
 
  

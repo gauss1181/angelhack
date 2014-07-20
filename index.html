@@ -1,14 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html ng-app="MathContest">
    <body>
+	   	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
       <script src="test.js"></script>
       <!-- <form> -->
       <div style="border-style:solid; float:left;">
          <div style="border-style:solid; width:420px; float:left;">
             <h3>Chat</h3>
          	<div id="chat" style="border-style:solid; width:400px;"></div>
-         	<input id="message" type="text" size="65" />
+         	<input id="message" type="text" size="60" />
          	<button type="submit" onclick="publish()" >Send</button>
          </div>
          <div style="width:600px; float:left; border-style:solid;">
@@ -17,6 +28,5 @@
             <button>View Users Online</button>
          </div>
       </div>
-      <!-- </form> -->
    </body>
 </html>
