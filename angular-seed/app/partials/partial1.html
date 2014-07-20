@@ -2,14 +2,14 @@
          <div style="border-style:solid; width:420px; float:left;">
             <h3>Chat</h3>
             <div id="chat" style="border-style:solid; height: 500px;overflow-y: auto; width:400px;"></div>
-            <input ng-model="message" id="message" type="text" size="60" ng-enter="enterPressed('#message')" ng-keypress="detectTyping()"/>
+            <input ng-model="message" id="message" type="text" size="60" ng-enter="enterPressed('#message')" ng-keypress="detectTyping()" />
             <button type="submit" ng-click="publish(true)" class="btn btn-primary">Send</button>
          </div>
          <div style="width:600px; float:left; border-style:solid;">
             <h3>Practice Mode</h3>
-            <p id="problem" ng-bind-html="generateProblem()"></p>
+            <p id="problem" ng-model="currentProblem"></p>
             <input type="text" ng-model="answer" id="answer" size="60">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" ng-click="generateProblem()"class="btn btn-primary">Submit</button>
             <p id="result"></p>
          </div>
 </div>
