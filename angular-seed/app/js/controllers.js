@@ -132,57 +132,6 @@ var problems = [
               answer: '3/8'
             }];
 
-// Problem Categories
-
-var algebra = [
-{
-   question: 'The difference between a two-digit number and the number obtained by reversing its digits is 5 times the sum of the digits of either number. What is the sum of the two digit number and its reverse?',
-   answer: '99'
-},
-{
-   question: 'Five positive consecutive integers starting with a have average b. What is the average of 5 consecutive integers that start with b?',
-   answer: 'a+4'
-},
-{
-    question: 'Let P be a cubic polynomial with P(0) = k, P(1) = 2k, and P(-1) = 3k. What is P(2) + P(-2)?',
-    answer: '14k'
-},
-{
-    question: 'Leah has 13 coins, all of which are pennies and nickels. If she had one more nickel than she has now, then she would have the same number of pennies and nickels. In cents, how much are her coins worth?',
-    answer: '37'
-},
-{
-    question: 'Susie pays for 4 muffins and 3 bananas. Calvin spends twice as much paying for 2 muffins and 16 bananas. A muffin is how many times as expensive as a banana?',
-    answer: '5/3'
-},
-{
-    question: 'What is the sum of the exponents of the prime factors of the square root of the largest perfect square that divides 12!?',
-    answer: '8'
-}
-];
-
-var geometry = [
-{
-    question: 'Convex quadrilateral ABCD has AB = 3, BC = 4, CD = 13, AD = 12, and angle ABC = 90 degrees, as shown. What is the area of the quadrilateral?',
-    answer: '36'
-},
-{
-    question: 'A set S consists of triangles whose sides have integer lengths less than 5, and no two elements of S are congruent or similar. What is the largest number of elements that S can have?',
-    answer: '9'
-}
-];
-
-var countingProb = [
-{
-    question: 'Walking down Jane Street, Ralph passed four houses in a row, each painted a different color. He passed the orange house before the red house, and he passed the blue house before the yellow house. The blue house was not next to the yellow house. How many orderings of the colored houses are possible?',
-    answer: '3'
-},
-{
-    question: 'A fair coin is tossed 3 times. What is the probability of at least two consecutive heads?',
-    answer: '3/8'
-}
-];
-
 $scope.checkAnswer = function(){
 	$scope.attempts += 1;
 	$scope.answer = document.getElementById("answer").value;
@@ -210,28 +159,7 @@ $scope.generateProblem = function(){
 	document.getElementById("problem").innerHTML = problem.question;
 	document.getElementById("problem").className = problem.answer;
 	console.log("new problem!");
-};
-
-$scope.getAlgebra = function(){
-	var problem = algebra[Math.floor(Math.random() * 6)];
-	document.getElementById("problem").innerHTML = problem.question;
-	document.getElementById("problem").className = problem.answer;
-	console.log("new problem!");
-};
-
-$scope.getGeometry = function(){
-	var problem = geometry[Math.floor(Math.random() * 2)];
-	document.getElementById("problem").innerHTML = problem.question;
-	document.getElementById("problem").className = problem.answer;
-	console.log("new problem!");
-};
-
-$scope.getCountingProb = function(){
-	var problem = countingProb[Math.floor(Math.random() * 2)];
-	document.getElementById("problem").innerHTML = problem.question;
-	document.getElementById("problem").className = problem.answer;
-	console.log("new problem!");
-};
+}
 
 
 
@@ -347,6 +275,7 @@ $scope.getCountingProb = function(){
 					});
 
       			$scope.getAllChannels();
+      			$scope.getCurrentPlayers();
       		});
 }
 
@@ -525,6 +454,27 @@ $scope.getPlayers = function(game){
 	});
 }
 
+$scope.currentPlayers = [];
+
+$scope.getCurrentPlayers = function(){
+		pubnub.here_now({
+		channel: "in-game-chat",
+		state: true,
+		callback: function(m){
+			console.log("getting players!");
+			console.log(m);
+			var uuids = m.uuids;
+			$scope.safeApply(function(){
+				for(var i = 0; i < uuids.length; i++){
+					$scope.currentPlayers.push(uuids[i].state.name);
+				}
+			});
+			console.log($scope.currentPlayers);
+
+		}
+
+	});
+}
 
 
 $scope.getAllInfo = function(){
@@ -532,18 +482,22 @@ $scope.getAllInfo = function(){
 	$scope.info = {};
 	for(var i = 0; i < $scope.games.length; i++){
 		var key = $scope.games[i];
-		$scope.info = {key.toString() : };
+		$scope.info[key] = null;
 		games.push(key);
 	}
-	for(var j = 0; j < $scope.games.length; j++){
-		var k = $scope.games[j];
+	for(var j = 0; j < games.length; j++){
+		var k = games[j];
+		// console.log(k);
 		pubnub.here_now({
 			channel: k,
 			state: true,
 			callback: function(m){
 				console.log("getting players!");
 				console.log(m);
-				$scope.info.push(m);
+				console.log($scope.info[k]);
+				$.extend($scope.info[k], m);
+				// $scope.info[k] = m;
+				console.log($scope.info[k]);
 			}
 
 		});
@@ -600,6 +554,10 @@ $scope.getAllChannels = function(){
 
 $scope.startGameSetup = function(){
 	angular.element('#gameDetails').modal('show');
+}
+
+$scope.showPlayers = function(){
+	angular.element('#groupDetails').modal('show');
 }
 
 

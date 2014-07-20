@@ -1,0 +1,26 @@
+<div class="modal fade" id="groupDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="left:0">
+    <div class="modal-content " style="margin-bottom:50px;width:400px;min-height:100px;margin-left: 100px;border:0;">
+
+      <div class="modal-header" style="border:0;">
+        <button type="button" style="/* color:white;opacity:.7; */" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">
+          <center>
+            Online Mathematicians!
+          </center>
+        </h4>
+      </div>
+      <div>
+        <div style="margin-left: 120px;margin-bottom: 25px;
+  "id="group" ng-repeat="p in currentPlayers">
+          {{ p }}
+        </div>
+      </div>
+      <div>
+<!--       <button style="margin-left: 140px;margin-top: 16px;margin-bottom: 16px;" ng-click="saveUser()">Save Username</button> -->
+    </div>
+      <div class="modal-footer" style="max-height:100px;border:0;padding:0;">
+      </div>
+    </div>
+  </div>
+</div>
