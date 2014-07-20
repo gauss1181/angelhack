@@ -6,7 +6,55 @@
             <button type="submit" ng-click="publish(true)" class="btn btn-primary">Send</button>
          </div>
          <div style="width:600px; float:left; border-style:solid;">
-            <h3>*insert game screen title here*</h3>
-            <p>Insert Problem Text Here</p>
+            <script>
+            "use strict";
+            var problems = [
+            {
+              question: 'Hello this is a new math problem. What is your answer? Type it below.',
+              answer: 'Hi'
+            },
+            {
+              question: 'Bye',
+              answer: 'So long'
+            },
+            {
+              question: 'Find the area of a square with length 5 and height 2.',
+              answer: '10'
+            },
+            {
+              question: 'Find the volume of a rectangular prism with length 9, width 6, and height 4.',
+              answer: '216'
+            },
+            {
+              question: 'What is the answer to life, the universe, and everything?',
+              answer: '42'
+            },
+            {
+              question: 'asdfasdf',
+              answer: '1'
+            },
+            {
+              question: 'ghjk',
+              answer: '0'
+            },
+            {
+              question: 'poinpon',
+              answer: 'blah'
+            },
+            {
+              question: 'lol',
+              answer: 'hi'
+            },
+            {
+              question: 'test',
+              answer: 'test'
+            },
+            ];
+            document.getElementById("problem").innerHTML = problems[Math.floor(Math.random() * 10)].question;
+            </script>
+            <h3>Practice Mode</h3>
+            <p id="problem"></p>
+            <input type="text" ng-model="answer" id="answer" size="60">
+            <button type="submit" class="btn btn-primary">Submit</button>
          </div>
 </div>
