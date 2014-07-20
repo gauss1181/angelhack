@@ -210,7 +210,28 @@ $scope.generateProblem = function(){
 	document.getElementById("problem").innerHTML = problem.question;
 	document.getElementById("problem").className = problem.answer;
 	console.log("new problem!");
-}
+};
+
+$scope.getAlgebra = function(){
+	var problem = algebra[Math.floor(Math.random() * 6)];
+	document.getElementById("problem").innerHTML = problem.question;
+	document.getElementById("problem").className = problem.answer;
+	console.log("new problem!");
+};
+
+$scope.getGeometry = function(){
+	var problem = geometry[Math.floor(Math.random() * 2)];
+	document.getElementById("problem").innerHTML = problem.question;
+	document.getElementById("problem").className = problem.answer;
+	console.log("new problem!");
+};
+
+$scope.getCountingProb = function(){
+	var problem = countingProb[Math.floor(Math.random() * 2)];
+	document.getElementById("problem").innerHTML = problem.question;
+	document.getElementById("problem").className = problem.answer;
+	console.log("new problem!");
+};
 
 
 
