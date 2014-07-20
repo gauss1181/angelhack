@@ -7,9 +7,10 @@
          </div>
          <div style="width:600px; float:left; border-style:solid;">
             <h3>Practice Mode</h3>
+            <p id="score" ng-model="score">SCORE: {{ score }}</p>
             <p id="problem" ng-model="currentProblem"></p>
             <input type="text" ng-model="answer" id="answer" size="60">
-            <button type="submit" ng-click="generateProblem()"class="btn btn-primary">Submit</button>
+            <button type="submit" ng-click="checkAnswer()"class="btn btn-primary">Submit</button>
             <p id="result"></p>
          </div>
 </div>

@@ -7,6 +7,7 @@ angular.module('myApp.controllers', [])
 	function($scope, $timeout, $http, $route, $location) {
 		
 		var pubnub;
+		$scope.score = 0;
 
 		$scope.safeApply = function(fn) {
 
@@ -130,10 +131,33 @@ var problems = [
               answer: '3/8'
             }];
 
-$scope.generateProblem = function(){
-	document.getElementById("problem").innerHTML = problems[Math.floor(Math.random() * 10)].question;
-	console.log("new problem!");
+$scope.checkAnswer = function(){
+	$scope.answer = document.getElementById("answer").value;
+	$scope.currentProblem = document.getElementById("problem").className;
+	if ($scope.answer == $scope.currentProblem) {
+		console.log('Correct!');
+		$scope.score += 1;
+		document.getElementById("result").innerHTML = "Correct!";
+		document.getElementById("result").style.color = "green";
+		var problem = problems[Math.floor(Math.random() * 10)];
+		document.getElementById("problem").innerHTML = problem.question;
+		document.getElementById("problem").className = problem.answer;
+		console.log("new problem!");
+		angular.element('#answer').val('');
+	}
+	else {
+		console.log('Incorrect!');
+		document.getElementById("result").innerHTML = "Incorrect, please try again.";
+		document.getElementById("result").style.color = "red";
+	}
 };
+
+$scope.generateProblem = function(){
+	var problem = problems[Math.floor(Math.random() * 10)];
+	document.getElementById("problem").innerHTML = problem.question;
+	document.getElementById("problem").className = problem.answer;
+	console.log("new problem!");
+}
 
 
 
