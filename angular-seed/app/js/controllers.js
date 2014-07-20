@@ -3,7 +3,23 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('MyCtrl1', ['$scope', '$timeout', function($scope, $timeout) {
+.controller('MyCtrl1', ['$scope', '$timeout',
+	function($scope, $timeout) {
+
+	$scope.$on('$locationChangeStart', function(event) {
+	       	pubnub.history({
+				channel: 'in-game-chat',
+				count: 100,
+				callback: function(m){
+					console.log(m);
+					var list = m[0];
+					for(var i = 0; i < list.length; i++){
+						receive(list[i]);						
+					}
+				}
+			});
+	    
+	});
 
 	function user_init(){
 		if(localStorage.user == undefined || 
@@ -13,6 +29,7 @@ angular.module('myApp.controllers', [])
 			angular.element('#userDetails').modal('show');
 			console.log('user_init!');
 		}
+
 	}
 
 	 angular.element(document).ready(function(){
@@ -146,6 +163,15 @@ angular.module('myApp.controllers', [])
 		localStorage.user = angular.element('#username').val();
 		angular.element('#username').val('');
 		angular.element('#userDetails').modal('hide');
+	}
+	$scope.clearChat = function(){
+		for(var i = 0 ; i < 100; i++){
+			pubnub.publish({
+				channel : "in-game-chat",
+				message : " "
+			});
+		}
+		console.log("chat should be cleared!");
 	}
 
 }])

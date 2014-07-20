@@ -2,8 +2,8 @@
          <div style="border-style:solid; width:420px; float:left;">
             <h3>Chat</h3>
             <div id="chat" style="border-style:solid; height: 500px;overflow-y: auto; width:400px;"></div>
-            <input ng-model="message" id="message" type="text" size="60" ng-enter="enterPressed('#message')"/>
-            <button type="submit" ng-click="publish()" class="btn btn-primary">Send</button>
+            <input ng-model="message" id="message" type="text" size="60" ng-enter="enterPressed('#message')" ng-keypress="detectTyping()"/>
+            <button type="submit" ng-click="publish(true)" class="btn btn-primary">Send</button>
          </div>
          <div style="width:600px; float:left; border-style:solid;">
             <h3>*insert game screen title here*</h3>
