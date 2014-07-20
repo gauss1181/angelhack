@@ -85,7 +85,7 @@ angular.module('myApp.controllers', [])
 
             //document.getElementById("problem").innerHTML = problems[Math.floor(Math.random() * 10)].question;
 
-            function submit() {
+            /*function submit() {
               var answer = document.getElementById("answer").value;
               if (answer == document.getElementById("problem").innerHTML.answer) {
                 document.getElementById("result").innerHTML = "Correct";
@@ -93,7 +93,7 @@ angular.module('myApp.controllers', [])
               else {
                 document.getElementById("result").innerHTML = "Incorrect";
               }
-            }
+            }*/
 
 	var pubnub;
 	(function(){
