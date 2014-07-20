@@ -525,6 +525,33 @@ $scope.getPlayers = function(game){
 	});
 }
 
+
+
+$scope.getAllInfo = function(){
+	var games = [];
+	$scope.info = {};
+	for(var i = 0; i < $scope.games.length; i++){
+		var key = $scope.games[i];
+		$scope.info = {key.toString() : };
+		games.push(key);
+	}
+	for(var j = 0; j < $scope.games.length; j++){
+		var k = $scope.games[j];
+		pubnub.here_now({
+			channel: k,
+			state: true,
+			callback: function(m){
+				console.log("getting players!");
+				console.log(m);
+				$scope.info.push(m);
+			}
+
+		});
+	}
+	console.log($scope.info);
+
+}
+
 $scope.joinGame = function(game){
 	$scope.getPlayers(game);
 	pubnub.subscribe({
